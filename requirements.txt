@@ -2,7 +2,10 @@
 # -e .
 
 # external requirements
+
+numpy<1.24.0 # TPOT Won't work with the latest version of numpy, so we need to downgrade it.
 google-api-python-client
 google-auth-oauthlib
 google-auth-httplib2
 python-dotenv>=0.5.1
+tpot
