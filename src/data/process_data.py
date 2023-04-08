@@ -25,6 +25,10 @@ def process_data(buckets=4):
 
     #data preprocessing
 
+    # Replace missing titles & descriptions with empty str
+    yt_data['title'] = yt_data['title'].fillna('')
+    yt_data['description'] = yt_data['description'].fillna('')
+    
     # Filter to show columns with NaN values
     na_cols = yt_data.columns[yt_data.isna().any()]
 
@@ -61,6 +65,7 @@ def process_data(buckets=4):
         # Create the categorical variable
         field_name = 'views_category_' + str(buckets)
         df[field_name] = pd.cut(df[num_col], bins=percentile_values, labels=percentile_cutoffs[:-1])
+        df[field_name] = df[field_name].fillna(0)
 
         return df
     
