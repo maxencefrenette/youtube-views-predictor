@@ -90,3 +90,5 @@ target/
 
 # Credentials file
 credentials.json
+
+src/models/structured_data_classifier/
