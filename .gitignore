@@ -5,6 +5,9 @@ __pycache__/
 # C extensions
 *.so
 
+src/data/YoutubeThumbnails
+src/data/YouTubeThumbnails-lowres
+
 # Distribution / packaging
 .Python
 env/
@@ -92,3 +95,4 @@ target/
 credentials.json
 
 src/models/structured_data_classifier/
+*.jpg
