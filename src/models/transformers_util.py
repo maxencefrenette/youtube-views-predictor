@@ -48,12 +48,13 @@ class ViewCategoryClassifier(nn.Module):
     def __init__(self, n_classes, model_name):
         super(ViewCategoryClassifier, self).__init__()
         self.bert = BertModel.from_pretrained(model_name, return_dict=False)
-        self.drop = nn.Dropout(p=0.4)
-        self.out1 = nn.Linear(self.bert.config.hidden_size, 128)
-        self.drop1 = nn.Dropout(p=0.4)
-        self.relu = nn.ReLU()
-        self.out = nn.Linear(128, n_classes)
-  
+        self.drop = nn.Dropout(p=0.3)
+        #self.out1 = nn.Linear(self.bert.config.hidden_size, 128)
+        #self.drop1 = nn.Dropout(p=0.4)
+        self.out = nn.Linear(self.bert.config.hidden_size, n_classes)
+
+        self.softmax = nn.Softmax()
+        
     def forward(self, input_ids, attention_mask):
         _, pooled_output = self.bert(
             input_ids=input_ids,
@@ -61,11 +62,11 @@ class ViewCategoryClassifier(nn.Module):
         )
         
         output = self.drop(pooled_output)
-        output = self.out1(output)
-        output = self.relu(output)
-        output = self.drop1(output)
-    
-        return self.out(output)
+        #output = self.out1(output)
+        #output = self.drop1(output)
+        output = self.out(output)
+
+        return self.softmax(output)
 
 
 def create_data_loader(texts, labels, tokenizer, max_len, batch_size):
